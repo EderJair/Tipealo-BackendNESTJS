@@ -21,7 +21,8 @@ import { VentaDetalle } from './ventas/entities/venta-detalle.entity';
       url: process.env.DATABASE_URL,
       ssl: { rejectUnauthorized: false },
       entities: [User, Cliente, Producto, Fiado, PagoFiado, Venta, VentaDetalle],
-      synchronize: true,
+      // DB_SYNC=false evita que TypeORM reescriba columnas que Hibernate dejo como varchar(255)
+      synchronize: process.env.DB_SYNC !== 'false',
     }),
     AuthModule,
     ClientesModule,
